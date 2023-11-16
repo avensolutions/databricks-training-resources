@@ -8,9 +8,7 @@
 
 Delta Lake is an open-source project that is part of the Linux Foundation.  The **Delta Lake** provider works with AWS S3, ADLS in Azure, GCS in Google, and more.
 
-# Introduction to Delta Lake
-
-<details open="open">
+<details open="closed">
 <summary>Contents</summary>
 <ol>
     <li>
@@ -166,7 +164,7 @@ ALTER TABLE students
 ADD CONSTRAINT valid_gpa_constraint CHECK (gpa >= 0 AND gpa <= 4);
 ```
 
-### <a id="insert-outside-range"></a>11.  Attempt to insert a row with a `gpa` value outside the valid range
+### 11.  Attempt to insert a row with a `gpa` value outside the valid range
 
 > This should fail now:
 
