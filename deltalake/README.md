@@ -29,6 +29,7 @@ The following example demonstrates how Delta Lake works.
 Let's create a Delta Lake table and run some data manipulation language (DML) statements against it...
 
 ```sql
+/* run all commands in this batch */
 USE CATALOG your_catalog;
 USE SCHEMA your_schema;
 
@@ -65,8 +66,10 @@ WHERE id >= 6;
 The **`DESCRIBE EXTENDED`** command allows us to inspect the table's metadata.  Delta Lake maintains a transaction log for each table.  We can see summary information about a Delta Lake object using **`DESCRIBE DETAIL`**.  Alternatively, we can use the **`DESCRIBE HISTORY`** command to see the table's change history.
 
 ```sql
-USE CATALOG your_catalog;
-USE SCHEMA your_schema;
+/* 
+make sure we're using the correct catalog and schema 
+then we will run each command one by one
+*/
 
 /* show columns and table metadata */
 DESCRIBE EXTENDED students;
@@ -83,8 +86,10 @@ DESCRIBE HISTORY students;
 As Delta Lake keeps a transaction log of all changes to a table, we can use the time travel feature to view or restore data to any previous point in time.
 
 ```sql
-USE CATALOG your_catalog;
-USE SCHEMA your_schema;
+/* 
+make sure we're using the correct catalog and schema 
+then we will run each command one by one
+*/
 
 /* traverse to any version using the `VERSION AS OF` command */
 SELECT * FROM students VERSION AS OF 1;
@@ -111,8 +116,10 @@ DESCRIBE HISTORY students;
 Delta Lake provides schema enforcement, meaning you can't insert data that doesn't match the table schema.
 
 ```sql
-USE CATALOG your_catalog;
-USE SCHEMA your_schema;
+/* 
+make sure we're using the correct catalog and schema 
+then we will run each command one by one
+*/
 
 /* try to insert a row with a string value for the `gpa` column; this should fail... */
 INSERT INTO students VALUES (7, "John", "Smith");
