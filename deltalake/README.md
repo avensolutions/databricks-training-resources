@@ -77,7 +77,7 @@ WHERE id = "4";
 
 -- version 6
 DELETE FROM students 
-WHERE value > 6;
+WHERE id >= 6;
 ```
 
 ### <a id="show-metadata-extended"></a>2.  Show table metadata using `DESCRIBE EXTENDED`
