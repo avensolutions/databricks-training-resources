@@ -11,10 +11,10 @@ Delta Lake is an open-source project hosted by the Linux Foundation.  The **Delt
 <details>
 <summary>Contents</summary>
 <ol>
-<li><a href="#create-populate-table">1. Create and populate a Delta Lake table</a></li>
-<li><a href="#show-metadata">2. Inspect Table Metadata and History</a></li>
-<li><a href="#time-travel">3. Versioning and Time Travel</a></li>
-<li><a href="#schema-enforcement">4. Schema Enforcement and Constraints</a></li>
+<li><a href="#create-populate-table">Create and populate a Delta Lake table</a></li>
+<li><a href="#show-metadata">Inspect Table Metadata and History</a></li>
+<li><a href="#time-travel">Versioning and Time Travel</a></li>
+<li><a href="#schema-enforcement">Schema Enforcement and Constraints</a></li>
 </ol>
 </details>
 
