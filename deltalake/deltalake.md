@@ -8,9 +8,11 @@ Delta Lake is an open source project that is part of the Linux Foundation.  The 
 
 ## Delta Lake Versioning and History
 
-Lets create a Delta Lake table and run some data manipulation language (DML) statements against it...
+The following example demonstartes how Delta Lake works.
 
 ### 1. Create and populate a Delta Lake table
+
+> Lets create a Delta Lake table and run some data manipulation language (DML) statements against it...
 
 ```sql
 USE CATALOG your_catalog;
@@ -44,25 +46,25 @@ DELETE FROM students
 WHERE value > 6;
 ```
 
-**`DESCRIBE EXTENDED`** allows us to see important metadata about our table, lets try it...
-
 ### 2. Show table metadata using `DESCRIBE EXTENDED`
+
+> **`DESCRIBE EXTENDED`** allows us to see important metadata about our table, lets try it...
 
 ```sql
 DESCRIBE EXTENDED students;
 ```
 
-**`DESCRIBE DETAIL`** is another command that allows us to explore table metadata.
-
 ### 3. Show table metadata using `DESCRIBE DETAIL`
+
+> **`DESCRIBE DETAIL`** is another command that allows us to explore table metadata.
 
 ```sql
 DESCRIBE DETAIL students;
 ```
 
-As every change to a Delta Lake table is stored in the tables transaction log, we can use the **`DESCRIBE HISTORY`** command to review changes, lets check it out...
-
 ### 4. Show table history using `DESCRIBE HISTORY`
+
+> As every change to a Delta Lake table is stored in the tables transaction log, we can use the **`DESCRIBE HISTORY`** command to review changes, lets check it out...
 
 ```sql
 DESCRIBE HISTORY students
@@ -72,34 +74,36 @@ DESCRIBE HISTORY students
 
 ## Time Travel
 
-You can traverse to any version using the **`VERSION AS OF`** command.
+As Delta Lake keeps a transaction log of all changes to a table, we can use the time travel feature to view or restore data to any previous point in time.
 
 ### 5. Show the table as it was at version 1
+
+> You can traverse to any version using the **`VERSION AS OF`** command.
 
 ```sql  
 SELECT * FROM students VERSION AS OF 1;
 ```
 
-You can also traverse to any version using the **`TIMESTAMP AS OF`** command.
-
 ### 6. Show the table as it was at a point in time
+
+> You can also traverse to any version using the **`TIMESTAMP AS OF`** command.
 
 ```sql
 SELECT * FROM students TIMESTAMP AS OF "paste_the_timestamp_for_version_1_here";
 ```
 
-You can use the time travel feature to create views which represent data at a specific point in time.
-
 ### 7. Create a view of the table as it was at version 1
+
+> You can use the time travel feature to create views which represent data at a specific point in time.
 
 ```sql
 CREATE OR REPLACE VIEW students_v1 AS
 SELECT * FROM students VERSION AS OF 1;
 ``` 
 
-You can restore a table to a previous version using the **`RESTORE`** command.
-
 ### 8. Restore the table to a previous version
+
+> You can restore a table to a previous version using the **`RESTORE`** command.
 
 ```sql
 RESTORE TABLE students TO VERSION AS OF 1;
@@ -109,24 +113,26 @@ RESTORE TABLE students TO VERSION AS OF 1;
 
 Delta Lake provides schema enforcement, which means that you can't insert data that doesn't match the table schema.
 
-### 9. Try to insert a row with a string value for the `gpa` column
+### 9. Try to insert a row with an incorrect data type 
+
+> Lets try to insert a row with a string value for the `gpa` column, this should fail...
 
 ```sql
 INSERT INTO students VALUES (7, "John", "3.0");
 ```
 
-You can also enforce constraints with the **`ALTER TABLE`** command.
-
 ### 10. Create a constraint to enforce a valid range for the `gpa` column
+
+> You can also enforce constraints with the **`ALTER TABLE`** command.
 
 ```sql
 ALTER TABLE students
 ADD CONSTRAINT valid_gpa_constraint CHECK (gpa >= 0 AND gpa <= 4);
 ```
 
-this should fail now:
-
 ### 11. Attempt to insert a row with a `gpa` value outside the valid range
+
+> this should fail now:
 
 ```sql
 INSERT INTO students VALUES (7, "John", "5.0");
