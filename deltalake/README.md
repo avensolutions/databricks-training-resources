@@ -8,11 +8,45 @@
 
 Delta Lake is an open-source project that is part of the Linux Foundation.  The **Delta Lake** provider works with AWS S3, ADLS in Azure, GCS in Google, and more.
 
+# Introduction to Delta Lake
+
+<details open="open">
+<summary>Contents</summary>
+<ol>
+    <li>
+        <a href="#delta-lake-versioning-and-history">Delta Lake Versioning and History</a>
+        <ol>
+            <li><a href="#create-populate-table">Create and Populate a Delta Lake Table</a></li>
+            <li><a href="#show-metadata-extended">Show Table Metadata Using `DESCRIBE EXTENDED`</a></li>
+            <li><a href="#show-metadata-detail">Show Table Metadata Using `DESCRIBE DETAIL`</a></li>
+            <li><a href="#show-table-history">Show Table History Using `DESCRIBE HISTORY`</a></li>
+        </ol>
+    </li>
+    <li>
+        <a href="#time-travel">Time Travel</a>
+        <ol>
+            <li><a href="#version-as-of">Show Table as it was at Version 1</a></li>
+            <li><a href="#timestamp-as-of">Show Table as it was at a Point in Time</a></li>
+            <li><a href="#create-view">Create a View of the Table as it was at Version 1</a></li>
+            <li><a href="#restore-table">Restore the Table to a Previous Version</a></li>
+        </ol>
+    </li>
+    <li>
+        <a href="#schema-enforcement-and-constraints">Schema Enforcement and Constraints</a>
+        <ol>
+            <li><a href="#insert-incorrect-data">Try to Insert a Row with an Incorrect Data Type</a></li>
+            <li><a href="#create-constraint">Create a Constraint to Enforce a Valid Range for the `gpa` Column</a></li>
+            <li><a href="#insert-outside-range">Attempt to Insert a Row with a `gpa` Value Outside the Valid Range</a></li>
+        </ol>
+    </li>
+</ol>
+</details>
+
 ## Delta Lake Versioning and History
 
 The following example demonstrates how Delta Lake works.
 
-### 1.  Create and populate a Delta Lake table
+### <a id="create-populate-table"></a>1.  Create and populate a Delta Lake table
 
 > Let's create a Delta Lake table and run some data manipulation language (DML) statements against it...
 
@@ -48,7 +82,7 @@ DELETE FROM students
 WHERE value > 6;
 ```
 
-### 2.  Show table metadata using `DESCRIBE EXTENDED`
+### <a id="show-metadata-extended"></a>2.  Show table metadata using `DESCRIBE EXTENDED`
 
 > **`DESCRIBE EXTENDED`** allows us to see important metadata about our table; let's try it...
 
@@ -56,7 +90,7 @@ WHERE value > 6;
 DESCRIBE EXTENDED students;
 ```
 
-### 3.  Show table metadata using `DESCRIBE DETAIL`
+### <a id="show-metadata-detail"></a>3.  Show table metadata using `DESCRIBE DETAIL`
 
 > **`DESCRIBE DETAIL`** is another command that allows us to explore table metadata.
 
@@ -64,7 +98,7 @@ DESCRIBE EXTENDED students;
 DESCRIBE DETAIL students;
 ```
 
-### 4.  Show table history using `DESCRIBE HISTORY`
+### <a id="show-table-history"></a>4.  Show table history using `DESCRIBE HISTORY`
 
 > As every change to a Delta Lake table is stored in the tables transaction log, we can use the **`DESCRIBE HISTORY`** command to review changes; let's check it out...
 
@@ -78,7 +112,7 @@ DESCRIBE HISTORY students
 
 As Delta Lake keeps a transaction log of all changes to a table, we can use the time travel feature to view or restore data to any previous point in time.
 
-### 5.  Show the table as it was at version 1
+### <a id="version-as-of"></a>5.  Show the table as it was at version 1
 
 > You can traverse to any version using the **`VERSION AS OF`** command.
 
@@ -86,7 +120,7 @@ As Delta Lake keeps a transaction log of all changes to a table, we can use the 
 SELECT * FROM students VERSION AS OF 1;
 ```
 
-### 6.  Show the table as it was at a point in time
+### <a id="timestamp-as-of"></a>6.  Show the table as it was at a point in time
 
 > You can also traverse to any version using the **`TIMESTAMP AS OF`** command.
 
@@ -94,7 +128,7 @@ SELECT * FROM students VERSION AS OF 1;
 SELECT * FROM students TIMESTAMP AS OF "paste_the_timestamp_for_version_1_here";
 ```
 
-### 7.  Create a view of the table as it was at version 1
+### <a id="create-view"></a>7.  Create a view of the table as it was at version 1
 
 > You can use the time travel feature to create views representing data at a specific point in time.
 
@@ -103,7 +137,7 @@ CREATE OR REPLACE VIEW students_v1 AS
 SELECT * FROM students VERSION AS OF 1;
 ``` 
 
-### 8.  Restore the table to a previous version
+### <a id="restore-table"></a>8.  Restore the table to a previous version
 
 > You can restore a table to a previous version using the **`RESTORE`** command.
 
@@ -115,7 +149,7 @@ RESTORE TABLE students TO VERSION AS OF 1;
 
 Delta Lake provides schema enforcement, meaning you can't insert data that doesn't match the table schema.
 
-### 9.  Try to insert a row with an incorrect data type 
+### <a id="insert-incorrect-data"></a>9.  Try to insert a row with an incorrect data type 
 
 > Let's try to insert a row with a string value for the `gpa` column; this should fail...
 
@@ -123,7 +157,7 @@ Delta Lake provides schema enforcement, meaning you can't insert data that doesn
 INSERT INTO students VALUES (7, "John", "3.0");
 ```
 
-### 10.  Create a constraint to enforce a valid range for the `gpa` column
+### <a id="create-constraint"></a>10.  Create a constraint to enforce a valid range for the `gpa` column
 
 > You can also enforce constraints with the **`ALTER TABLE`** command.
 
@@ -132,7 +166,7 @@ ALTER TABLE students
 ADD CONSTRAINT valid_gpa_constraint CHECK (gpa >= 0 AND gpa <= 4);
 ```
 
-### 11.  Attempt to insert a row with a `gpa` value outside the valid range
+### <a id="insert-outside-range"></a>11.  Attempt to insert a row with a `gpa` value outside the valid range
 
 > This should fail now:
 
