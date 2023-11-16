@@ -134,6 +134,11 @@ SELECT * FROM students TIMESTAMP AS OF "paste_the_timestamp_for_version_1_here";
 CREATE OR REPLACE VIEW students_v1 AS
 SELECT * FROM students VERSION AS OF 1;
 ``` 
+select from the view...
+
+```sql
+SELECT * FROM students_v1;
+``` 
 
 ### <a id="restore-table"></a>8.  Restore the table to a previous version
 
