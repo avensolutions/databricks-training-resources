@@ -101,7 +101,7 @@ DESCRIBE DETAIL students;
 > As every change to a Delta Lake table is stored in the tables transaction log, we can use the **`DESCRIBE HISTORY`** command to review changes; let's check it out...
 
 ```sql
-DESCRIBE HISTORY students
+DESCRIBE HISTORY students;
 ```
 
 > Note the correlation between the version number in the block of Data Manipulation Language (DML) statements and the version number in the Delta Lake transaction log
