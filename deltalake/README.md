@@ -148,6 +148,12 @@ SELECT * FROM students_v1;
 RESTORE TABLE students TO VERSION AS OF 1;
 ```
 
+You can see the restore operation in the history...
+
+```sql
+DESCRIBE HISTORY students;
+```
+
 ## Schema Enforcement and Constraints
 
 Delta Lake provides schema enforcement, meaning you can't insert data that doesn't match the table schema.
