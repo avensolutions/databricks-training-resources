@@ -6,7 +6,11 @@
 
 Delta Lake is an open source project that is part of the Linux Foundation.  The **Delta Lake** provider works with AWS S3, ADLS in Azure, GCS in Google, and more.
 
-## Delta Lake Example
+## Delta Lake by Example
+
+Lets create a Delta Lake table and run some data manipulation language (DML) statements against it...
+
+1. Create and populate a Delta Lake table
 
 ```sql
 USE CATALOG your_catalog;
