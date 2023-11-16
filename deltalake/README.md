@@ -8,7 +8,7 @@
 
 Delta Lake is an open-source project that is part of the Linux Foundation.  The **Delta Lake** provider works with AWS S3, ADLS in Azure, GCS in Google, and more.
 
-<details open="closed">
+<details>
 <summary>Contents</summary>
 <ol>
     <li>
